@@ -5,13 +5,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-
 @RestControllerAdvice
 class GlobalExceptionHandler {
-    @ExceptionHandler (BlankNameException::class)
+    @ExceptionHandler(BlankNameException::class)
     fun handleBlankNameException(e: BlankNameException): ResponseEntity<ExceptionResponse> {
         val response = ExceptionResponse(
-
             message = e.message ?: "Nombre en blanco - ERROR ",
             source = "StudentService"
         )
@@ -19,10 +17,9 @@ class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .body(response)
-
-
     }
-    @ExceptionHandler (StudentNotFoundException::class)
+
+    @ExceptionHandler(StudentNotFoundException::class)
     fun handleStudentNotFoundException(e: StudentNotFoundException): ResponseEntity<ExceptionResponse> {
         val response = ExceptionResponse(
             message = e.message ?: "Student not found",
@@ -33,8 +30,9 @@ class GlobalExceptionHandler {
             .status(HttpStatus.NOT_FOUND)
             .body(response)
     }
+
     @ExceptionHandler(SubjectNotFound::class)
-    open fun handleSubjectNotFound(
+    fun handleSubjectNotFound(
         e: SubjectNotFound
     ): ResponseEntity<ExceptionResponse> {
         val response = ExceptionResponse(
@@ -45,8 +43,9 @@ class GlobalExceptionHandler {
             .status(HttpStatus.NOT_FOUND)
             .body(response)
     }
+
     @ExceptionHandler(ProfessorNotFound::class)
-    open fun handleProfessorNotFound(
+    fun handleProfessorNotFound(
         e: ProfessorNotFound
     ): ResponseEntity<ExceptionResponse> {
         val response = ExceptionResponse(
@@ -59,7 +58,7 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(EnrollmentNotFound::class)
-    open fun handleEnrollmentNotFound(
+    fun handleEnrollmentNotFound(
         e: EnrollmentNotFound
     ): ResponseEntity<ExceptionResponse> {
         val response = ExceptionResponse(
@@ -72,7 +71,7 @@ class GlobalExceptionHandler {
     }
 }
 
-data class ExceptionResponse (
+data class ExceptionResponse(
     val message: String,
     val source: String,
 )
